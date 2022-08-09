@@ -44,6 +44,7 @@ public class WaterControl : MonoBehaviour
             if (collision.gameObject.layer == LayerMask.NameToLayer("Sponge"))
             {
                 Destroy(collision.gameObject);
+                Destroy(gameObject);
             }
         }
         if (gameObject.layer == LayerMask.NameToLayer("Polluted Water"))
