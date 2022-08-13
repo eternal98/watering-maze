@@ -5,6 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public SpriteData data;
+
+    private void Awake()
+    {
+        GameObject background = GameObject.Find("Background");
+        background.GetComponent<SpriteRenderer>().sprite = data.backgrounds[data.noBG].background;
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            GameObject tree = GameObject.Find("Tree");
+            tree.GetComponent<SpriteRenderer>().sprite = data.tree[data.noTree].tree[data.tree[data.noTree].noUp];
+        }
+    }
+
 
     public void OpenPanel(GameObject panel)
     {
