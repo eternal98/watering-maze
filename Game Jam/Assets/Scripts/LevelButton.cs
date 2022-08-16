@@ -7,6 +7,7 @@ public class LevelButton : MonoBehaviour
 {
     [SerializeField]public int scene;
     private Vector3 currentPos;
+    public GameObject chaneScenePanel;
 
     private void OnMouseDown()
     {
@@ -16,7 +17,14 @@ public class LevelButton : MonoBehaviour
     {
         if (transform.position == currentPos)
         {
-            SceneManager.LoadScene(scene);
+            StartCoroutine(ChangeScene());
         }
+    }
+
+    public IEnumerator ChangeScene()
+    {
+        chaneScenePanel.GetComponent<Animator>().SetTrigger("Close");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(scene);
     }
 }

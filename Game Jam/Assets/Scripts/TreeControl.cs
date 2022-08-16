@@ -38,6 +38,11 @@ public class TreeControl : MonoBehaviour
             gameManager.GetComponent<GameManager>().data.level++;
             PlayerPrefs.SetInt("level", gameManager.GetComponent<GameManager>().data.level);
             PlayerPrefs.SetInt("money", gameManager.GetComponent<GameManager>().data.money);
+            if (gameManager.GetComponent<GameManager>().data.tree[gameManager.GetComponent<GameManager>().data.noTree].noUp < 4)
+            {
+                gameManager.GetComponent<GameManager>().data.tree[gameManager.GetComponent<GameManager>().data.noTree].noUp++;
+            }
+            PlayerPrefs.SetInt("noUp" + gameManager.GetComponent<GameManager>().data.noTree.ToString(), gameManager.GetComponent<GameManager>().data.tree[gameManager.GetComponent<GameManager>().data.noTree].noUp);
         }
     }
     void Lose()

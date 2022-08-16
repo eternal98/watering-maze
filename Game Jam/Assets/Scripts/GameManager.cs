@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public SpriteData data;
+    public GameObject chaneScenePanel;
 
     private void Awake()
     {
@@ -18,6 +19,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        chaneScenePanel.GetComponent<Animator>().SetTrigger("Open");
+        Invoke("CloseChangePanel", 1);
+    }
+    void CloseChangePanel()
+    {
+        chaneScenePanel.SetActive(false);
+    }
+
 
     public void OpenPanel(GameObject panel)
     {
@@ -27,16 +38,23 @@ public class GameManager : MonoBehaviour
     {
         panel.SetActive(false);
     }
-    public void ChangeScene(int sc)
+    public IEnumerator ChangeScene(int sc)
     {
+        chaneScenePanel.SetActive(true);
+        chaneScenePanel.GetComponent<Animator>().SetTrigger("Close");
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sc);
     }
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex));
     }
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+    public void GoHome()
+    {
+        StartCoroutine(ChangeScene(0));
     }
 }

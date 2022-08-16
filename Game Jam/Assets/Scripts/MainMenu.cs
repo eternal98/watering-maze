@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
         }
         data.noBG = PlayerPrefs.GetInt("noBg");
         data.noTree = PlayerPrefs.GetInt("noTree");
+        
         for (int i = 1; i < data.tree.Length; i++) 
         {
             if (PlayerPrefs.GetInt("tree" + i.ToString()) == 1)
@@ -30,12 +31,16 @@ public class MainMenu : MonoBehaviour
                 data.tree[i].isOpen = true;
             } 
         }
-        for (int i = 1; i < data.tree.Length; i++)
+        for (int i = 1; i < data.backgrounds.Length; i++)
         {
             if (PlayerPrefs.GetInt("bg" + i.ToString()) == 1)
             {
                 data.backgrounds[i].isOpen = true;
             }
+        }
+        for (int i = 1; i < data.tree.Length; i++)
+        {
+            data.tree[i].noUp = PlayerPrefs.GetInt("noUp" + i.ToString());
         }
     }
     private void Start()
@@ -93,6 +98,7 @@ public class MainMenu : MonoBehaviour
         if(data.backgrounds[noBG].isOpen == true)
         {
             data.noBG = noBG;
+            PlayerPrefs.SetInt("noBg", data.noBG);
             if(noBG == 0)
             {
                 backgroundShop[0].transform.GetChild(0).gameObject.SetActive(true);
@@ -137,6 +143,7 @@ public class MainMenu : MonoBehaviour
         if (data.tree[noTree].isOpen == true)
         {
             data.noTree = noTree;
+            PlayerPrefs.SetInt("noTree", data.noTree);
             if (noTree == 0)
             {
                 treeShop[0].transform.GetChild(1).gameObject.SetActive(true);
