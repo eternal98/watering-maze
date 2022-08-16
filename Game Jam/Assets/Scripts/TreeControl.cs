@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TreeControl : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class TreeControl : MonoBehaviour
 
     public GameObject winPanel;
     public GameObject losePanel;
+
+    public GameObject moneyText;
 
     private void Start()
     {
@@ -27,6 +30,13 @@ public class TreeControl : MonoBehaviour
     void Win()
     {
         winPanel.SetActive(true);
+        GameObject gameManager = GameObject.Find("Game Manager");
+        if (gameManager.GetComponent<GameManager>().data.level < SceneManager.GetActiveScene().buildIndex)
+        {
+            moneyText.SetActive(true);
+            gameManager.GetComponent<GameManager>().data.money += 10;
+            gameManager.GetComponent<GameManager>().data.level++;
+        }
     }
     void Lose()
     {

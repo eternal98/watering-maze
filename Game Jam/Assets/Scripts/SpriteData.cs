@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SpriteData : ScriptableObject
 {
+    public int money;
+
+    public int level;
+
     public BackgroundData[] backgrounds;
     public int noBG;
 
