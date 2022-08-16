@@ -34,8 +34,10 @@ public class TreeControl : MonoBehaviour
         if (gameManager.GetComponent<GameManager>().data.level < SceneManager.GetActiveScene().buildIndex)
         {
             moneyText.SetActive(true);
-            gameManager.GetComponent<GameManager>().data.money += 10;
+            gameManager.GetComponent<GameManager>().data.money += 50;
             gameManager.GetComponent<GameManager>().data.level++;
+            PlayerPrefs.SetInt("level", gameManager.GetComponent<GameManager>().data.level);
+            PlayerPrefs.SetInt("money", gameManager.GetComponent<GameManager>().data.money);
         }
     }
     void Lose()
@@ -65,8 +67,8 @@ public class TreeControl : MonoBehaviour
 
     IEnumerator Grow()
     {
-        gameObject.transform.localScale = new Vector3(1.6f, 1.6f, 1);
+        gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         yield return new WaitForSeconds(0.1f);
-        gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        gameObject.transform.localScale = new Vector3(1f, 1f, 1);
     }
 }

@@ -14,6 +14,30 @@ public class MainMenu : MonoBehaviour
 
     public TextMeshProUGUI goldText;
 
+    private void Awake()
+    {
+        data.level = PlayerPrefs.GetInt("level");
+        if (PlayerPrefs.HasKey("money"))
+        {
+            data.money = PlayerPrefs.GetInt("money");
+        }
+        data.noBG = PlayerPrefs.GetInt("noBg");
+        data.noTree = PlayerPrefs.GetInt("noTree");
+        for (int i = 1; i < data.tree.Length; i++) 
+        {
+            if (PlayerPrefs.GetInt("tree" + i.ToString()) == 1)
+            {
+                data.tree[i].isOpen = true;
+            } 
+        }
+        for (int i = 1; i < data.tree.Length; i++)
+        {
+            if (PlayerPrefs.GetInt("bg" + i.ToString()) == 1)
+            {
+                data.backgrounds[i].isOpen = true;
+            }
+        }
+    }
     private void Start()
     {
         //Level
@@ -43,6 +67,7 @@ public class MainMenu : MonoBehaviour
         }
 
         //Tree
+        treeShop[0].transform.GetChild(0).GetComponent<Image>().sprite = data.tree[0].tree[data.tree[0].noUp];
         for (int i = 1; i < data.tree.Length; i++)
         {
             if (data.tree[i].isOpen == true)
@@ -97,7 +122,9 @@ public class MainMenu : MonoBehaviour
             if(int.Parse(backgroundShop[noBG].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text) <= data.money)
             {
                 data.money -= int.Parse(backgroundShop[noBG].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
+                PlayerPrefs.SetInt("money", data.money);
                 data.backgrounds[noBG].isOpen = true;
+                PlayerPrefs.SetInt("bg" + noBG.ToString(), 1);
                 backgroundShop[noBG].GetComponent<Image>().color = Color.white;
                 backgroundShop[noBG].transform.GetChild(0).gameObject.SetActive(false);
                 backgroundShop[noBG].transform.GetChild(1).gameObject.SetActive(false);
@@ -137,7 +164,9 @@ public class MainMenu : MonoBehaviour
             if (int.Parse(treeShop[noTree].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text) <= data.money)
             {
                 data.money -= int.Parse(treeShop[noTree].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
+                PlayerPrefs.SetInt("money", data.money);
                 data.tree[noTree].isOpen = true;
+                PlayerPrefs.SetInt("tree" + noTree.ToString(), 1);
                 treeShop[noTree].GetComponent<Image>().color = Color.white;
                 treeShop[noTree].transform.GetChild(1).gameObject.SetActive(false);
                 treeShop[noTree].transform.GetChild(2).gameObject.SetActive(false);
